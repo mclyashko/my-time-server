@@ -15,7 +15,7 @@ type Response struct {
 func currentTimeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	now := time.Now()
+	now := time.Now().UTC() // Получение текущего времени в UTC
 	response := Response{
 		CurrentTime: now.Format(time.RFC3339), // Форматирование времени в ISO 8601
 	}
