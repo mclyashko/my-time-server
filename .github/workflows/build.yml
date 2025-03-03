@@ -39,11 +39,17 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version: stable
+      - name: Install go-coverage-to-lcov
+        run: |
+          go install github.com/axw/gocov/gocov
+          go install github.com/axw/gocov/gocov/cmd/go-coverage-to-lcov
       - name: Run Tests and Generate Coverage
         run: |
           go test -v -coverprofile=coverage.out ./...
+          go tool cover -func=coverage.out > coverage.txt
+          go-coverage-to-lcov coverage.out > coverage.lcov
       - name: Upload Coverage to Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          coverage-file: coverage.out
+          path-to-lcov: coverage.lcov
