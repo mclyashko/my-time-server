@@ -24,7 +24,7 @@ func currentTimeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("GET /current-time", currentTimeHandler) // Обработчик для GET /current-time
+	http.HandleFunc("GET /time", currentTimeHandler) // Обработчик для GET /current-time
 
 	// Запуск сервера
 	log.Fatalf("Server error: %v", http.ListenAndServe(":8080", nil))
